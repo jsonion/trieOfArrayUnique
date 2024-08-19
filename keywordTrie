@@ -1,0 +1,154 @@
+import { TrieOfArrayUnique } from "./trieOfArrayUnique.js";
+
+class keywordTrie extends TrieOfArrayUnique {
+      rxSplit = /\s*(?:\.|\?|\:|\=|\,|\[|\]|\-|\s|\!|\;|\$|\"|\(|\))\s*/g;
+      results = [];
+
+      #trie = new Object();
+      #recurse; #terminated; #terminator;
+
+  constructor (cfg, arg) {
+           if (cfg instanceof Object) super(cfg);
+                                 else super();
+
+          //// modified, custom rx to split words
+           if (arg instanceof RegExp)
+          this.rxSplit = rx;
+
+          else
+          //// 
+           if (arg instanceof Object)
+          this.#trie  =  arg;
+  }
+
+  exportTrie () {
+           return this.#trie;
+  }
+
+//// construct by reusing generating parsed tries
+
+  parse (str, collection, idx=false) {
+   var
+  count = 0,
+  words = str.split(this.rxSplit).forEach(str =>
+          {
+            if (!str.length) return;
+            else count++;
+
+             let term = str.toLowerCase();
+                 
+                 this.updateTrie(str, term,
+                 collection, idx);
+          });
+          return words;
+  }
+
+  updateTrie (str, term, collection, idx) {
+    this.recurse([...term], term, onLeafWordNode);
+
+    function onLeafWordNode (wordNode, term) {
+      var ref, x;
+      switch (true) {
+       ////   create new trie leaf node
+       case  (wordNode === null):
+      return {
+
+        term, n: 1,
+         ref: {[collection]: [{idx, n: 1}]}
+
+      };
+       ////   frequency counter
+       case !(wordNode.n ++):
+
+       ////   update existing trie leaf node
+       ////   append new collection & reference
+       case !(ref = wordNode['ref'][collection])
+                               instanceof Array:
+      return     !!(wordNode['ref'][collection] 
+                                = [{idx, n: 1}]);
+
+       ////   update collection reference
+       case  (x = ref.findIndex(ref => 
+                        idx === ref.idx)),
+              x == -1:
+      return !!ref.push({idx, n: 1});
+
+               default:
+      return !!ref[x].n ++;
+
+      }
+
+      wordNode.n++;
+    }
+  }
+
+  updateSearchTerms (inputValue) {
+  var inputKeywords=(inputValue)
+                    .split(this.rxSplit)
+                    .entries();
+
+  var terminator  = this.#terminator;
+  var suggestions = [  ];
+
+  this.TERMS      = [  ];
+  this.CUMULATIVE =  {}; //// <-- focus here
+
+  inputKeywords.forEach(term => {
+       this.recurse([...term], undefined,
+                               nodeWalker);
+
+/*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+
+  function nodeWalker (node) {
+        Object.entries(node).forEach(([k,w]) => {
+            if (k  ==  this.#terminator)
+                       this.sortAdd(w);
+
+                else nodeWalker(    w    );
+        });
+  }
+
+  });
+
+  /*/////////
+       return {
+
+        term, n: 1,
+         ref: {[collection]: [{idx, n: 1}]}
+
+      };
+  */////////
+  }
+
+  sortAdd (wordNode, fn=null) {
+   var bfr = [ , ];
+
+   if  (typeof a === "object" && !a.length)
+       a.push(word)
+
+    !isNaN(a[0].n)
+   a.every((b, i) =>  {
+
+        bfr[0]=a.n;
+    if (typeof b === "object" && !isNaN(b.n)) {
+        bfr[1]=b.n;
+
+       ////////  write-ng pad
+
+        return (fn  &&    fn(a, b))
+          ||   (
+               !fn  && (bfr[0] > bfr[1])
+                                       )
+          &&
+         this.TERMS[i+1] !== 
+         this.TERMS.splice(i,   0,   b),
+         this.TERMS.splice(i+1, 
+        (this.TERMS[i+1]  
+                    ===    )
+  }}});
+
+
+}
+
+export { keywordTrie };
+export default keywordTrie;
